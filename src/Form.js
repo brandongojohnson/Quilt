@@ -62,50 +62,69 @@ const Form = (props)  =>{
     setSubmitted(true);
   }
 
+  var btn = document.getElementById("myBtn");
+
   const buttonCheck = () =>{
     const date = new Date(yearAcquired).toString();
-    const realDate = new Date(date.setMonth(date.getMonth() + 1))
-    const nDate = monthYear(realDate)
-    console.log(nDate)
+    // const realDate = new Date(date.setMonth(date.getMonth() + 1))
+    // const nDate = monthYear(realDate)
+    // console.log(nDate)
+    btn.id = "hjkhf"
+
+
     
   }
 
+  const changeColor = () =>{
+    divStyle.colors = "red;"
+  }
+
+var divStyle = {
+  color: 'blue'
+};
+
+
+
+
+
+
   return (
     <div class = "homepage">
+      <button id = "myBtn" onClick = {()=>changeColor()}> Change Color</button>
       
-      <h1> Hi {userName}</h1>
+      <h1 style = {null}> Hi {userName}</h1>
  
-      <div class = "form">
+    <div class = "addForm" id = "myModal">
         <input type="text" onChange={(e) => setArticleName(e.target.value)} value={articleName} placeholder="Nickname"/><br/>
 
-      <select onChange={(e) => setClothingType(e.target.value)} value={clothingType}>
-        <option value='' disabled selected hidden> Clothing Type </option>
-        <option value="Pants">Pants</option>
-        <option value="Skirt">Skirt</option>
-        <option value="Shirt">Shirt</option>
-        <option value="Jacket">Jacket</option>
-        <option value="Belt">Belt</option>
-        <option value="Shoes">Shoes</option>
-        <option value="Jewelry">Jewelry</option>
-      </select>
-      <br/>
+        <select onChange={(e) => setClothingType(e.target.value)} value={clothingType}>
+          <option value='' disabled selected hidden> Clothing Type </option>
+          <option value="Pants">Pants</option>
+          <option value="Skirt">Skirt</option>
+          <option value="Shirt">Shirt</option>
+          <option value="Jacket">Jacket</option>
+          <option value="Belt">Belt</option>
+          <option value="Shoes">Shoes</option>
+          <option value="Jewelry">Jewelry</option>
+        </select>
+        <br/>
       
       <label> Date Acquired: 
-      {/* <input type="text" onChange={(e) => setYearAcquired(e.target.value)} value={yearAcquired} /><br/> */}
-      
-      <input type="month" id="start" name="trip-start"
-       onChange={(e) => setYearAcquired(e.target.value)}
-       value={yearAcquired}
-       min="2018-01-01" max="2018-12-31"></input>
+        {/* <input type="text" onChange={(e) => setYearAcquired(e.target.value)} value={yearAcquired} /><br/> */}
+        
+        <input type="month" id="start" name="trip-start"
+        onChange={(e) => setYearAcquired(e.target.value)}
+        value={yearAcquired}
+        min="2018-01-01" max="2018-12-31"></input>
 
-       <button onClick = {()=>buttonCheck()}> Button Check </button>
+        <button onClick = {()=>buttonCheck()}> Button Check </button>
 
       </label>
 
       <button onClick={() => Submit()}>Submit</button>
       {/* {submitted && <Upload articleID = {aID}/>} */}
 
-      </div>
+    </div>
       
       <UserArticles 
         currentUser = {uID}
@@ -115,6 +134,11 @@ const Form = (props)  =>{
         // articleID = {aID}
         />
     </div>
+
+    
+    
+
+
   );
 };
 
