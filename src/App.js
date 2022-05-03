@@ -1,22 +1,14 @@
-import './App.css';
-import About from'./Pages/About.js';
-import Form from './Form.js';
-import ArticleForm from './ArticleForm.js';
-import Article from './Article.js';
-import User from './User.js';
-import Users from './Users.js';
-import Thing from './Thing.js';
-import Upload from './Upload.js';
 import React, { useState, useEffect } from 'react';
 import {Route, BrowserRouter as Router, Switch, Link} from "react-router-dom";
 import { ref, set, onValue } from "firebase/database";
 import {db} from "./firebase"
 import Signin from './Signin.js';
-
+import Profile from './Profile/Profile.js';
+import "./index.css";
+import "./Profile/modal.css"
 
 const App = () =>{
 
- 
   const [userListData, setUserListData] = useState([]);
   const [articleListData, setArticleListData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -89,17 +81,18 @@ const App = () =>{
       <Switch>
 
       <Route path = "/signin"> <Signin/> </Route> 
-      <Route path = "/users" exact> <Users data = {userListData} loading = {userListDataLoading}/></Route>
-      {/* <Route path = "/articleform"> <ArticleForm/> </Route> */}
+      
+      {/* <Route path = "/users" exact> <Users data = {userListData} loading = {userListDataLoading}/></Route> */}
 
-      <Route path = "/thing"> <Thing/> </Route>
+     
 
       <Route path = "/home"> 
-        <Form
+        <Profile
           userListData = {userListData} 
           articleListData = {articleListData} 
           loading = {isLoading}
         />
+
       </Route>
 
       </Switch>

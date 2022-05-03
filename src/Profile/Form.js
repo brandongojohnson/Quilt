@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ref, set, onValue, push } from "firebase/database";
-import {db} from "./firebase";
-import {aIDGenerator} from './Pages/say.js';
-import Upload from './Upload.js';
-import UserArticles from './UserArticles.js';
-import {monthYear} from './monthYear.js';
+import {db} from "../firebase";
+import {aIDGenerator} from './say.js';
+
+
+import { DateRangePicker } from 'rsuite';
 
 const Form = (props)  =>{
 
@@ -20,14 +20,8 @@ const Form = (props)  =>{
   const aID = aIDGenerator(); // I generate
   const userName = localStorage.getItem("userName")// get from sign in
 
-
   //User Information ///////////////////////////
   const writeUserData = () => {
-
-    // set(ref(db, 'users/' + uID), {
-    //   displayname: userName,
-    //   userID: uID,
-    // });
 
     set(ref(db, 'users/' + `${uID}/` + 'articles/' +  aID), {
       articleID: aID,
@@ -42,6 +36,7 @@ const Form = (props)  =>{
     setYearAcquired("")
     setArticleName("")
   }
+  
 //Article Information ///////////////////////////
   const writeArticleData = () =>{
 
@@ -70,31 +65,20 @@ const Form = (props)  =>{
     // const nDate = monthYear(realDate)
     // console.log(nDate)
     btn.id = "hjkhf"
-
-
-    
-  }
-
-  const changeColor = () =>{
-    divStyle.colors = "red;"
   }
 
 var divStyle = {
   color: 'blue'
 };
 
-
-
-
-
-
   return (
-    <div class = "homepage">
-      <button id = "myBtn" onClick = {()=>changeColor()}> Change Color</button>
+    <div class = "homepage modal">
       
-      <h1 style = {null}> Hi {userName}</h1>
- 
-    <div class = "addForm" id = "myModal">
+    <div class = "addForm modal-content" id = "myModal">
+      <img src = "https://firebasestorage.googleapis.com/v0/b/contact-list-66177.appspot.com/o/clothes-hanger.png?alt=media&token=32c80e4f-df25-4172-9f65-3b3c833fc9d4"></img>
+
+    <h1> Add <span id = "clothing-title">Clothing</span> </h1> <br/>
+
         <input type="text" onChange={(e) => setArticleName(e.target.value)} value={articleName} placeholder="Nickname"/><br/>
 
         <select onChange={(e) => setClothingType(e.target.value)} value={clothingType}>
@@ -109,36 +93,25 @@ var divStyle = {
         </select>
         <br/>
       
-      <label> Date Acquired: 
-        {/* <input type="text" onChange={(e) => setYearAcquired(e.target.value)} value={yearAcquired} /><br/> */}
-        
+      <> 
         <input type="month" id="start" name="trip-start"
         onChange={(e) => setYearAcquired(e.target.value)}
         value={yearAcquired}
         min="2018-01-01" max="2018-12-31"></input>
-
-        <button onClick = {()=>buttonCheck()}> Button Check </button>
-
-      </label>
+      </>
 
       <button onClick={() => Submit()}>Submit</button>
       {/* {submitted && <Upload articleID = {aID}/>} */}
 
     </div>
+    
+    <div style={{
+      display: 'block', width: 600, paddingLeft: 30
+    }}>
       
-      <UserArticles 
-        currentUser = {uID}
-        userListData = {props.userListData} 
-        articleListData = {props.articleListData}
-        loading = {props.loading}
-        // articleID = {aID}
-        />
     </div>
 
-    
-    
-
-
+    </div>
   );
 };
 

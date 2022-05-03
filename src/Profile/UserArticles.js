@@ -1,8 +1,7 @@
 import{useParams} from "react-router-dom";
 import React, { useState, useEffect } from 'react';
-import { ref, set, onValue } from "firebase/database";
-import {db} from "./firebase";
 import Upload from './Upload.js';
+import "../index.css";
 
 
 export default function UserArticles(props) {
@@ -14,19 +13,16 @@ export default function UserArticles(props) {
 
     const {article} = useParams(null);
     const [newKeys, setNewKeys] = useState(null);
-    // const [urls, setUrls] = useState(null);
-    var urls = null;
-
     var keys = null;
-    var imageUrls = null;
 
     const populate = () =>{
-      keys = Object.keys(userData[props.currentUser]["articles"]);
-
-      // console.log(userData.hasOwnProperty('brandon'));
-      console.log(articleData);
-      console.log(keys);
-     
+      
+      if (userData.hasOwnProperty(props.currentUser)){
+        keys = Object.keys(userData[props.currentUser]["articles"]);
+      }
+      else{
+        keys = [];
+      }
     }
     
     !props.loading && populate();
@@ -44,28 +40,31 @@ export default function UserArticles(props) {
             
             <div key = {index}>
               {console.log(userData[props.currentUser]["articles"][articleID]["displayname"])}
+            
+            <div class = "article-info">
             <p>Nickname: {userData[props.currentUser]["articles"][articleID]["displayname"]}</p>
             <p>Clothing Type: {userData[props.currentUser]["articles"][articleID]["clothingtype"]}</p>
             <p>Year Purchased: {userData[props.currentUser]["articles"][articleID]["yearpurchased"]}</p>
-            <Upload aID = {articleID}/><br/><br/>
+            <Upload aID = {articleID} type = 'article'/>
             
-            {/* {urls = Object.keys(userData[props.currentUser]["articles"][articleID])} */}
-        
-            
-            {/* {urls = Object.keys(userData[props.currentUser]["articles"][articleID]["urls"])} */}
+            <br/><br/>
+            </div>
 
-            {/* {urls.map((url,index)=>{
+            {userData[props.currentUser]["articles"][articleID].hasOwnProperty('urls') && <div class = "joe">
+         
+            { Object.keys(userData[props.currentUser]["articles"][articleID]["urls"]).map((url,index)=>{
                 return(
-                  <div key = {index}> 
-                  <p>Year Purchased: {userData[props.currentUser]["articles"][articleID]["urls"][url]}</p>
-                  </div> 
+                    <div key = {index}> 
+                    <img src = {userData[props.currentUser]["articles"][articleID]["urls"][url]} width = "200" />
+                    </div>
                 )
-              })}<br/><br/> */}
+              })}
+              <br/><br/> 
+              </div>}
             </div> 
           )
         })}
-
-       
+        
      </div> }
     </div>
     )

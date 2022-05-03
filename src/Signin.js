@@ -4,19 +4,19 @@ import { getAuth, getRedirectResult, signInWithPopup, GoogleAuthProvider, signOu
 import { useState, useEffect } from 'react';
 import {Route, BrowserRouter as Router, Switch, Link, Redirect, useHistory} from "react-router-dom";
 import DelayLink from 'react-delay-link';
-
-
+// import 'rsuite/dist/rsuite.min.css';
+import { DateRangePicker } from 'rsuite';
 
 
 export default function Signin(props){
-  
 
     const [user, setUser] = useState('');
     const [loggedIn, setLoggedIn] = useState(false);
-
     const history = useHistory();
-
     const provider = new GoogleAuthProvider();
+
+    
+    provider.setCustomParameters({prompt: "select_account"});
 
     const auth = getAuth();
 
@@ -62,17 +62,18 @@ export default function Signin(props){
     }
 
     const localcheck = () =>{
-        console.log(localStorage.getItem("userName"));
-    }
-
-    const check = () =>{
+        // console.log(localStorage.getItem("userName"));
         console.log(auth.currentUser);
     }
-
     
     return (
         <div>
-            {googleSignIn}
+            {/* <DateRangePicker 
+            placeholder = "Default" 
+            style={{ width: 230 }}/>
+            <br/> */}
+
+            {/* {googleSignIn} */}
 
             {loggedIn && history.push("/home")}
           
